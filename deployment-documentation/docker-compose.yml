@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  apiwatch:
+    build:
+      context: .
+      dockerfile: deployment-documentation/Dockerfile
+    ports:
+      - "${APIWATCH_PORT:-8000}:8000"
+    volumes:
+      - apiwatch-data:/data
+    environment:
+      - APIWATCH_DB_PATH=/data/apiwatch.db
+      - APIWATCH_CONFIG=/data/config.yaml
+    restart: unless-stopped
+
+volumes:
+  apiwatch-data:
